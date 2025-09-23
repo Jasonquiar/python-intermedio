@@ -41,3 +41,22 @@ def process_article_data(raw_data):
 # Imports ordenados: estándar → terceros → locales
 # Líneas en blanco: Separar funciones y clases lógicamente
 # Comillas consistentes: Usar comillas dobles para strings
+
+
+def newsapi_client(api_key, query, timeout=30, retries=3):
+    return f"NewsAPI: {query} con timeout {timeout}"
+
+
+def guardian_client(api_key, section, from_date, timeout=30, retries=3):
+    return f"Guardian {section} desde {from_date} con timeout {timeout}"
+
+
+def ejemplo_args(api_key, *args):
+    print(f"api_key: {api_key}")
+    print(f"args: {args}")
+    print(f"type args: {type(args)}")
+    print("====")
+
+
+ejemplo_args("API_KEY_VALUE", "Este", "parametro", "acá")
+ejemplo_args("API_KEY_VALUE", "Hola", "Mundo")
