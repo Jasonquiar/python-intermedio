@@ -79,12 +79,24 @@ def ejemplo_kwargs(**kwargs):
 # )
 
 
-API_KEY = "3b4489b0cf50485fbbfb1c35fed831ce"
+API_KEY = "3b4489b0cf50485fbbfb1c35fed831ceasdfads"
 BASE_URL = "https://newsapi.org/v2/everything"
 
 import json
 import urllib.parse
 import urllib.request
+
+
+class NewsSystemError(Exception):
+    """Error general en la app"""
+
+    pass
+
+
+class APIKeyError(NewsSystemError):
+    """Error cuando la API KEY es invalida"""
+
+    pass
 
 
 def newsapi_client(api_key, query, timeout=30, retries=3):
@@ -95,8 +107,7 @@ def newsapi_client(api_key, query, timeout=30, retries=3):
             data = response.read().decode("utf-8")
             return json.loads(data)
     except urllib.error.HTTPError:
-        print("La API KEY es invalida")
-        return {"articles": []}
+        raise APIKeyError("Ocurrió un error, no se pudo conectar con la API")
     return f"NewsAPI: {query} con timeout {timeout}"
 
 
@@ -124,6 +135,12 @@ def fetch_news(api_name, *args, **kwargs):
     return client(*args, **config)
 
 
-response_data = fetch_news("newapi", api_key=API_KEY, query="Python")
-for article in response_data["articles"]:
-    print(article["title"])
+response_data = None
+try:
+    response_data = fetch_news("newapi", api_key=API_KEY, query="Python")
+except APIKeyError as e:
+    print(f"{e}")
+
+if response_data:
+    for article in response_data["articles"]:
+        print(article["title"])
