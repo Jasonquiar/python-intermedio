@@ -58,5 +58,50 @@ def ejemplo_args(api_key, *args):
     print("====")
 
 
-ejemplo_args("API_KEY_VALUE", "Este", "parametro", "acá")
-ejemplo_args("API_KEY_VALUE", "Hola", "Mundo")
+# ejemplo_args("API_KEY_VALUE", "Este", "parametro", "acá")
+# ejemplo_args("API_KEY_VALUE", "Hola", "Mundo")
+
+
+def ejemplo_kwargs(**kwargs):
+    print(f"kwargs: {type(kwargs)}")
+    print(f"kwargs: {kwargs}")
+    print("======")
+
+
+ejemplo_kwargs(
+    api_key="DEMO",
+    query="Noticias de Python",
+    timeout=30,
+    retries=3,
+)
+ejemplo_kwargs(
+    api_key="DEMO_GUARDIAN",
+    section="Sports",
+    from_date="2020-10-20",
+    timeout=30,
+    retries=3,
+)
+
+
+def fetch_news(api_name, *args, **kwargs):
+    """
+    Fución flexible para conectar con la API
+    """
+
+    base_config = {
+        "timeout": 30,
+        "retries": 3,
+    }
+
+    config = {
+        **base_config,
+        **kwargs,
+    }
+
+    api_clients = {
+        "newapi": newsapi_client,
+        "guardian": guardian_client,
+    }
+
+    client = api_clients[api_name]
+    return client(*args, **config)
