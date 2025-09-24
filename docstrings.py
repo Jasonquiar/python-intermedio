@@ -20,6 +20,6 @@ def ejemplo_con_docstring() -> str:
     return "Hola, mundo!"
 
 
-# print(ejemplo_con_docstring.__doc__)
-# help(ejemplo_con_docstring)
+print(ejemplo_con_docstring.__doc__)
+help(ejemplo_con_docstring)
 print(ejemplo_sin_docstring.__doc__)

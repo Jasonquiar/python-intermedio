@@ -1,3 +1,6 @@
+"""Ejemplo de manejo de excepciones en Python."""
+
+
 class DivisionError(Exception):
     """Error en operación"""
 

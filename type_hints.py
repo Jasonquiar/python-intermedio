@@ -1,4 +1,4 @@
-"""Typing con Python"""
+"""Explicaciones y ejemplos de type hints en Python."""
 
 variable = 42  # int
 print(f"Variable: {variable}, del tipo: {type(variable)}")
