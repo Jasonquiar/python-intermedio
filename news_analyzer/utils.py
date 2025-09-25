@@ -52,3 +52,10 @@ def process_article_data(raw_data: dict) -> dict:
         dict: Diccionario con datos procesados y normalizados del artículo.
     """
     return {}
+
+def get_unique_sources(articles):
+    return {
+        article.get("source").get("name")
+        for article in articles
+        if article.get("source") and article.get("source").get("name")
+    }
