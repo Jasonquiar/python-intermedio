@@ -5,7 +5,7 @@ Sistema de análisis de noticias con APIs múltiples.
 from news_analyzer.config import API_KEY
 from news_analyzer.exceptions import APIKeyError
 from news_analyzer.api_client import fetch_news
-from news_analyzer.utils import get_unique_sources, get_articles_by_source
+from news_analyzer.utils import get_unique_sources, get_articles_by_source, get_reading_time
 
 response_data = None
 try:
@@ -20,6 +20,9 @@ if response_data:
     for index, source in enumerate(sources_set, start=1):
         print(f"No: {index} -- {source}")
 
+    articles = list(map(get_reading_time, response_data["articles"]))
+    for article in articles:
+        print(f"{article["title"]} -- Tiempo de lectura: {article["reading_time"]}")
 
     # for article in response_data["articles"]:
     #     print(article["title"])
@@ -28,3 +31,5 @@ if response_data:
     github_articles = get_articles_by_source(response_data["articles"], "github.com")
     for github_article in github_articles:
         print(github_article["source"]["name"], github_article["title"])
+
+
