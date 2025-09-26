@@ -1,4 +1,8 @@
 """Configuración de la aplicación."""
+import os
+from dotenv import load_dotenv
 
-API_KEY = "3b4489b0cf50485fbbfb1c35fed831ce"
+load_dotenv()
+
+API_KEY = os.environ.get("API_KEY")
 BASE_URL = "https://newsapi.org/v2/everything"
