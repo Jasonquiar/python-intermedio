@@ -2,23 +2,13 @@
 
 
 def clean_text(text: str) -> str:
-    """Limpia y normaliza texto removiendo espacios y convirtiendo a minúsculas.
-
-    Esta función toma una cadena de texto y realiza operaciones de limpieza
-    básicas para normalizar el contenido. Elimina espacios en blanco al inicio
-    y final, y convierte todo el texto a minúsculas para facilitar comparaciones
-    y procesamiento posterior.
+    """Quita espacios al inicio y al final y convierte el texto a minúsculas.
 
     Args:
-        text (str): La cadena de texto que se desea limpiar y normalizar.
-                   Puede contener espacios, caracteres especiales y mayúsculas.
+        text (str): Cadena que se desea normalizar.
 
     Returns:
-        str: El texto limpio y normalizado. Si el texto de entrada está vacío
-             o es None, retorna una cadena vacía.
-
-    Raises:
-        TypeError: Si el parámetro text no es de tipo str.
+        str: Texto normalizado; si la entrada es vacía, devuelve una cadena vacía.
 
     Examples:
         >>> clean_text("  HOLA MUNDO  ")
@@ -30,31 +20,30 @@ def clean_text(text: str) -> str:
         >>> clean_text("")
         ''
 
-        >>> clean_text("   ")
-        ''
-
         >>> clean_text("MiXeD cAsE tExT   ")
         'mixed case text'
     """
-    # PEP 8: 4 espacios por indentación, no tabs
     if not text:
         return ""
     return text.strip().lower()
 
 
 def process_article_data(raw_data: dict) -> dict:
-    """
-    Procesa datos crudos de artículo.
+    """Reserva el punto de entrada para procesar un artículo.
+
+    La implementación actual es un marcador de posición y devuelve un diccionario vacío.
+
     Args:
-        raw_data (dict): Diccionario con datos crudos del artículo. Se espera que
-                         contenga las claves 'title', 'author' y 'content'.
+        raw_data (dict): Datos originales del artículo.
+
     Returns:
-        dict: Diccionario con datos procesados y normalizados del artículo.
+        dict: Diccionario vacío mientras no se implemente el procesamiento.
     """
     return {}
 
 
 def get_unique_sources(articles):
+    """Devuelve los nombres de fuentes presentes, sin duplicados ni valores vacíos."""
     return {
         article.get("source").get("name")
         for article in articles
@@ -63,6 +52,7 @@ def get_unique_sources(articles):
 
 
 def get_articles_by_source(articles: list[dict], source: str) -> list[dict]:
+    """Filtra artículos por nombre de fuente sin distinguir mayúsculas."""
     return list(
         filter(
             lambda article: article["source"]["name"].lower() == source.lower(),
@@ -72,7 +62,11 @@ def get_articles_by_source(articles: list[dict], source: str) -> list[dict]:
 
 
 def get_reading_time(article: dict) -> dict:
-    """Calcula el tiempo de lectura"""
+    """Agrega el tiempo estimado de lectura al artículo y devuelve el mismo diccionario.
+
+    La estimación usa bloques enteros de 200 caracteres y suma un minuto.
+    Esta función modifica ``article`` directamente.
+    """
     minutes = len(article["content"]) // 200 + 1
     article["reading_time"] = minutes
     return article

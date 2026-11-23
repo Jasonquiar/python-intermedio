@@ -1,3 +1,5 @@
+"""Funciones de análisis de noticias mediante la API de OpenAI."""
+
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -6,9 +8,15 @@ load_dotenv()
 
 
 def analyze_news_with_ia(articles: list[dict], query: str) -> str | None:
+    """Envía noticias y una pregunta al modelo e imprime su respuesta.
+
+    Se incluyen como máximo diez noticias y hasta cien caracteres de descripción
+    por noticia para limitar el tamaño del contexto enviado. La función imprime
+    el resultado; actualmente no devuelve un valor.
+    """
 
     client = OpenAI(
-        # This is the default and can be omitted
+        # Si se omite, el cliente también puede leer la clave del entorno.
         api_key=os.environ.get("OPENAI_API_KEY"),
     )
 
@@ -19,6 +27,7 @@ def analyze_news_with_ia(articles: list[dict], query: str) -> str | None:
         ]
     )
 
+    # El prompt combina el contexto seleccionado con la pregunta del usuario.
     prompt = f"""
         Basándote en estas noticias:
         {context}

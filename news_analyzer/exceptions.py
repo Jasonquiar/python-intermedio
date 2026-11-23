@@ -2,12 +2,12 @@
 
 
 class NewsSystemError(Exception):
-    """Error general en la app"""
+    """Clase base para los errores propios del sistema de noticias."""
 
     pass
 
 
 class APIKeyError(NewsSystemError):
-    """Error cuando la API KEY es invalida"""
+    """Error relacionado con la clave o la respuesta de una API."""
 
     pass

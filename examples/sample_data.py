@@ -1,4 +1,7 @@
-"""Datos de ejemplo para pruebas y demostraciones."""
+"""Datos de ejemplo para las demostraciones del proyecto.
+
+Cada elemento representa un artículo con título, fuente, descripción y categoría.
+"""
 
 sample_articles = [
     {

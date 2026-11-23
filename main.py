@@ -10,9 +10,11 @@ from news_analyzer.open_ia import analyze_news_with_ia
 
 response_data = None
 try:
+    # La clave se obtiene de la configuración y se pasa al cliente elegido.
     response_data = fetch_news("newapi", api_key=API_KEY, query="Python")
 except APIKeyError as e:
     print(f"{e}")
 
+# Solo se analiza la respuesta si la consulta devolvió datos.
 if response_data:
     print(analyze_news_with_ia(response_data["articles"], "Qué piensas de Python?"))

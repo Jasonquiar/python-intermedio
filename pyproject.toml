@@ -9,3 +9,23 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "ruff>=0.13.1",
 ]
+
+# ---------------------------------------------------------------
+# Configuración de Ruff (linter + formateador)
+# ---------------------------------------------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+# E/W: estilo PEP 8 · F: errores (Pyflakes) · I: orden de imports
+# UP: sintaxis moderna · B: bugs comunes
+select = ["E", "W", "F", "I", "UP", "B"]
+# Nunca usar ERA001: borra comentarios que "parecen código".
+ignore = ["ERA001", "E501"]
+# Aunque alguien active ERA001, --fix no podrá aplicarlo.
+unfixable = ["ERA001"]
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
